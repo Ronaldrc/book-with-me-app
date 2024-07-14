@@ -2,4 +2,3 @@
 .vscode
 *.env
 /*.env
-.env.backend
