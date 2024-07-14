@@ -6,7 +6,7 @@ import './Button.css';
 // Button will 
 export default function Button() {
     // URL to interact with backend
-    const apiURL = 'http://192.168.1.121:5000'      // FIXME: Change url
+    // const apiURL =       // FIXME: Change url
 
     // 
 
