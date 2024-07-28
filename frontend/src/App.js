@@ -1,33 +1,23 @@
-import React, { useState, useEffect } from 'react';
-import Calendar from 'react-calendar';
-import './App.css';
-import axios from 'axios';
+import React from 'react';
+import './App.js'
+import Contact from './pages/contact/contact.js'
+import Home from './pages/home/home.js'
+
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  useParams,
+} from "react-router-dom";
 
 function App() {
-  // Interact with backend
-  const apiUrl = process.env.REACT_APP_PUBLIC_API_URL
-  
-  const formatShortWeekday = (locale, date) => ['S', 'M', 'T', 'W', 'T', 'F', 'S'][date.getDay()];
-
-  const [date, setDate] = useState(new Date());
-
-  function onChange(nextValue) {
-    setDate(nextValue);
-  }
-
   return (
-    <Calendar
-      onChange={onChange}
-      value={date}
-      onClickDay={onChange}
-      prev2Label={null}
-      next2Label={null}
-      calendarType='gregory'
-      minDate={new Date()}
-      minDetail={"month"}
-      formatShortWeekday={formatShortWeekday}
-      showNeighboringMonth={false}
-    />
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home/>}/>
+        <Route path="/contact" element={<Contact/>}/>
+      </Routes>
+    </Router>
   );
 }
 
