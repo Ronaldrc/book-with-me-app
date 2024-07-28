@@ -3,7 +3,7 @@ import React from 'react';
 import Booking from '../../components/Booking';
 import createBooking from '../../components/PopulateDateTime';
 
-function Home() {
+function Home({ selectedDate, setSelectedDate }) {
     return(
         <div className="body">
             <div className="home-page">
@@ -14,11 +14,11 @@ function Home() {
                 </div>
                 <div className="calendar-title">
                     <p className="calendar-title">
-                        SELECT A DAY
+                        Please select a day
                     </p>
                 </div>
             <div className="calendar-app">
-          <Booking/>
+          <Booking selectedDate={selectedDate} setSelectedDate={setSelectedDate}/>
         </div>
       </div>
     </div>
