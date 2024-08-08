@@ -2,9 +2,7 @@ from flask import Flask, request, jsonify, make_response
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 from dotenv import load_dotenv
-from json import JSONEncoder
 import datetime
-import json
 import os
 
 load_dotenv("./.env")
@@ -54,7 +52,7 @@ class DateTime(db.Model):
 with app.app_context():
     db.create_all()
 
-# Add 1 month
+# Add 1 month - handle year change
 def add_month(year, month):
     if month == 12:
         return datetime.datetime(year + 1, 1, 1)
@@ -117,14 +115,38 @@ def create_date_time():
             'message' : 'error creating date_time',
             'error' : str(e)
         }), 500)
-    
+
+# Get availability data for entire month
 @app.route('/api/booking/available_times/<int:year>/<int:month>', methods = ['GET'])
-def get_available_times(year, month):
+def get_available_times_for_month(year, month):
     # retrieve using date
-    search_date = datetime.datetime(year, month, 1)
-    search_date_plus_one_month = add_month(year, month)
     try:
+        search_date = datetime.datetime(year, month, 1)
+        search_date_plus_one_month = add_month(year, month)
         booking_list = DateTime.query.filter((DateTime.date >= search_date) & (DateTime.date < search_date_plus_one_month) & (DateTime.is_available == True)).all()
+        if booking_list:
+            # Convert all DateTime objects into strings
+            list_of_jsons_booking = convert_list_of_datetime_to_json(booking_list)
+            return make_response(jsonify({
+                'data' : list_of_jsons_booking
+            }), 201)
+        return make_response(jsonify({
+            'message' : 'availability data not found'
+        }), 500)
+    except Exception as e:
+        return make_response(jsonify({
+            'message' : 'error getting availability data',
+            'error' : str(e)
+        }), 500)
+
+# Get availability data for entire day
+# Filter, sort, then return each column
+@app.route('/api/booking/available_times/<int:year>/<int:month>/<int:day>', methods = ['GET'])
+def get_available_times_for_day(year, month, day):
+    # retrieve using date
+    try:
+        search_date = datetime.datetime(year, month, day)
+        booking_list = DateTime.query.filter((DateTime.date == search_date) & (DateTime.is_available == True)).order_by(DateTime.start_time).all()
         if booking_list:
             # Convert all DateTime objects into strings
             list_of_jsons_booking = convert_list_of_datetime_to_json(booking_list)
