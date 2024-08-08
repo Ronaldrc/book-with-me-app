@@ -1,4 +1,3 @@
-import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 const createBooking = async () => {
@@ -11,7 +10,7 @@ const createBooking = async () => {
     for (var i = 0; i < 200; i++) {
         for (var j = 0; j < 10; j++) {      // increment by 0.5 hours, last range is 4:30 - 5pm
             var dayOfWeek = start_date.getDay();
-            if (dayOfWeek != 0 && dayOfWeek != 6) {
+            if (dayOfWeek !== 0 && dayOfWeek !== 6) {
                 try {
                     var send_date = start_date.toISOString().split("T")[0];
                     var start_time = start_date.toISOString();
