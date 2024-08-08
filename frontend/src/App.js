@@ -3,13 +3,11 @@ import './App.js'
 import Contact from './pages/contact/contact.js'
 import Home from './pages/home/home.js'
 import Next from './pages/next/next.js'
-import { useNavigate } from 'react-router-dom';
 
 import {
   BrowserRouter as Router,
   Route,
-  Routes,
-  useParams,
+  Routes
 } from "react-router-dom";
 
 function App() {
@@ -23,7 +21,6 @@ function App() {
           selectedDate !== null &&
           <Route path="/next" element={<Next selectedDate={selectedDate}/>}/>
         }
-
         <Route path="/contact" element={<Contact/>}/>
       </Routes>
     </Router>
