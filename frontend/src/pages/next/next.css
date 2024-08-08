@@ -1,4 +1,20 @@
-h1 {
-    color: black;
-    font-size: 40px;
+h1.list-times {
+    color: white;
+    font-size: 20px;
+    font-weight: 400;
+    border: 1px rgb(174, 175, 255) solid;
+    align-content: center;
+    padding: 10px;
+    margin: 0px;
+}
+
+.container-display-times {
+    text-align: center;
+    width: 400px;
+    overflow: hidden;
+}
+
+.display-times {
+    overflow-y: scroll;
+    height: 300px;
 }

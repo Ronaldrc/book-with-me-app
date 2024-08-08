@@ -1,16 +1,26 @@
 import './next.css'
-import React, { useState } from 'react';
+import React from 'react';
+import ListTimes from '../../components/ListTimes';
 
 function Next({ selectedDate }) {
-
-    return (
+    return(
         <div className="body">
-            <h1>next page</h1>
-            <h1>{selectedDate.toISOString()}</h1>
-            {/* get a date and time from datebase.
-                then compare date/time with the date/time displayed on this page */}
-            <h1>{selectedDate.toLocaleTimeString()}</h1>
-        </div>
+            <div className="home-page">
+                <div className="topbar">
+                    <h1 className="name">Ron Chim</h1>
+                    <p className="appointment">Book a 30-minute appointment</p>
+                    <hr/>
+                </div>
+                <div className="calendar-title">
+                    <p className="calendar-title">
+                        Please select a time
+                    </p>
+                </div>
+            <div className="container-display-times">
+                <ListTimes selectedDate={selectedDate}/>
+            </div>
+      </div>
+    </div>
     );
 }
 
